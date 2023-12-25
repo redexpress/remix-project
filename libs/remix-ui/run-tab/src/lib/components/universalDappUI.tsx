@@ -25,12 +25,20 @@ export function UniversalDappUI(props: UdappProps) {
   const [instanceBalance, setInstanceBalance] = useState(0)
 
   useEffect(() => {
-    if (!props.instance.abi) {
-      const abi = txHelper.sortAbiFunction(props.instance.contractData.abi)
-
+    if (props.instance.abi2) {
+      let abi = JSON.parse(props.instance.abi2)
+      if (abi.abi) {
+        abi = abi.abi
+      }
       setContractABI(abi)
     } else {
-      setContractABI(props.instance.abi)
+      if (!props.instance.abi) {
+        const abi = txHelper.sortAbiFunction(props.instance.contractData.abi)
+
+        setContractABI(abi)
+      } else {
+        setContractABI(props.instance.abi)
+      }
     }
     if (props.instance.address) {
       let address =
