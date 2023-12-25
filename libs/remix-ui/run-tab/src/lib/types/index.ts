@@ -260,7 +260,7 @@ export interface ContractDropdownProps {
   passphrasePrompt: (message: string) => JSX.Element,
   mainnetPrompt: (tx: Tx, network: Network, amount: string, gasEstimation: string, gasFees: (maxFee: string, cb: (txFeeText: string, priceStatus: boolean) => void) => void, determineGasPrice: (cb: (txFeeText: string, gasPriceValue: string, gasPriceStatus: boolean) => void) => void) => JSX.Element,
   tooltip: (toasterMsg: string | JSX.Element) => void,
-  loadAddress: (contract: ContractData, address: string) => void,
+  loadAddress: (contract: ContractData, address: string, abi2: string) => void,
   networkName: string,
   setNetworkName: (name: string) => void,
   setSelectedContract: (contractName: string) => void
@@ -395,6 +395,7 @@ export interface UdappProps {
     name: string,
     decodedResponse?: Record<number, any>,
     abi?: any
+    abi2?: string
   },
   context: 'memory' | 'blockchain',
   removeInstance: (index: number) => void,
