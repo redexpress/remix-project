@@ -240,7 +240,7 @@ const deployContract = (plugin: RunTab, selectedContract, args, contractMetadata
   plugin.blockchain.deployContractWithLibrary(selectedContract, args, contractMetadata, compilerContracts, callbacks, confirmationCb)
 }
 
-export const loadAddress = (plugin: RunTab, dispatch: React.Dispatch<any>, contract: ContractData, address: string) => {
+export const loadAddress = (plugin: RunTab, dispatch: React.Dispatch<any>, contract: ContractData, address: string, abi2: string) => {
   loadContractFromAddress(plugin, address,
     (cb) => {
       dispatch(displayNotification('At Address', `Do you really want to interact with ${address} using the current ABI definition?`, 'OK', 'Cancel', cb, null))
@@ -256,7 +256,7 @@ export const loadAddress = (plugin: RunTab, dispatch: React.Dispatch<any>, contr
         const currentFile = plugin.REACT_API.contracts.currentFile
         const compiler = plugin.REACT_API.contracts.contractList[currentFile].find(item => item.alias === contract.name)
         const contractData = getSelectedContract(contract.name, compiler.compiler)
-        return addInstance(dispatch, { contractData, address, name: contract.name })
+        return addInstance(dispatch, { contractData, address, name: contract.name, abi2: abi2 })
       }
     }
   )
