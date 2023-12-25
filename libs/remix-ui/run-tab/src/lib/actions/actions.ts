@@ -65,7 +65,7 @@ export const updateGasPrice = (dispatch: React.Dispatch<any>, price: string) => 
   dispatch(setGasPrice(price))
 }
 
-export const addInstance = (dispatch: React.Dispatch<any>, instance: { contractData?: ContractData, address: string, name: string, abi?: any, decodedResponse?: Record<number, any> }) => {
+export const addInstance = (dispatch: React.Dispatch<any>, instance: { contractData?: ContractData, address: string, name: string, abi?: any, abi2?: string, decodedResponse?: Record<number, any> }) => {
   instance.decodedResponse = {}
   dispatch(addNewInstance(instance))
 }
