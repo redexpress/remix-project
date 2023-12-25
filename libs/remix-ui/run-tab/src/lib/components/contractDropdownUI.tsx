@@ -26,6 +26,7 @@ export function ContractDropdownUI(props: ContractDropdownProps) {
     disabled: true,
   })
   const [loadedAddress, setLoadedAddress] = useState<string>('')
+  const [abi2, setAbi2] = useState<string>('')
   const [contractOptions, setContractOptions] = useState<{
     title: string | JSX.Element
     disabled: boolean
@@ -40,6 +41,7 @@ export function ContractDropdownUI(props: ContractDropdownProps) {
   const [compilerName, setCompilerName] = useState<string>('')
   const contractsRef = useRef<HTMLSelectElement>(null)
   const atAddressValue = useRef<HTMLInputElement>(null)
+  const abi2Value = useRef<HTMLInputElement>(null)
   const { contractList, loadType, currentFile, compilationSource, currentContract, compilationCount, deployOptions } = props.contracts
 
   useEffect(() => {
@@ -258,6 +260,11 @@ export function ContractDropdownUI(props: ContractDropdownProps) {
     setLoadedAddress(value)
   }
 
+  const abi2Changed = (event) => {
+    const value = event.target.value
+    setAbi2(value)
+  }
+
   const loadFromAddress = () => {
     let address = loadedAddress
     if (address == '') return
@@ -266,7 +273,7 @@ export function ContractDropdownUI(props: ContractDropdownProps) {
         props.tooltip(checkSumWarning())
         address = ethJSUtil.toChecksumAddress(address)
       }
-      props.loadAddress(loadedContractData, address)
+      props.loadAddress(loadedContractData, address, abi2)
     } catch (e) {
       console.log('Invalid Address input: ', e)
       setaddressIsValid(false)
@@ -538,6 +545,20 @@ export function ContractDropdownUI(props: ContractDropdownProps) {
                   id: 'udapp.loadContractFromAddress',
                 })}
                 onChange={atAddressChanged}
+              />
+            </CustomTooltip>
+          </div><div className="d-flex flex-row">
+            <CustomTooltip
+              placement={'top-end'}
+              tooltipClasses="text-wrap text-left"
+              tooltipId="runAndDeployAddressInputtooltip"
+              tooltipText="abi"
+            >
+              <input
+                ref={abi2Value}
+                className={'border-dark' + ' h-100 udapp_input udapp_ataddressinput ataddressinput form-control'}
+                placeholder="abi"
+                onChange={abi2Changed}
               />
             </CustomTooltip>
           </div>
